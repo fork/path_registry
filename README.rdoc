@@ -1,0 +1,58 @@
+= PathRegistry
+== Warum ein Register für Pfade?
+
+* automatische Generierung einer Sitemap
+
+  module PathRegistry
+
+    registered_path do
+      def self.sitemap
+        Sitemap.new self.all
+      end
+    end
+
+  end
+
+  sitemap = RegisteredLinks.sitemap
+
+* Hilfe zur Verlinkung von internen Seiten
+
+  class NavigationController < ApplicationController
+
+    # ...
+
+    def new
+      @navigation = Navigation.new
+      @paths      = @navigation.registered_paths
+    end
+
+    # ...
+
+  end
+
+== Wie ist die "PathRegistry" aufgebaut (UML)?
+* Nutzer und Anbieter
+* Ereignisse und Beobachter
+* Registrierte Links
+
+<SETUP>
+  cd <yourapp>
+
+  script/plugin install git://github.org/fork/path_registry
+  rake db:migrate
+
+  $EDITOR config/path_registry.rb
+  add_event ...
+  add_observer ...
+  registered_path { ... }
+
+<USAGE>
+  registeres_path ...
+  uses_registered_path ...
+
+== Welche Ziele gab es (mit Beispielen)?
+* Composed Method Pattern - Kent Beck (are comments code smells?)
+* Erweiterbarkeit (wenig Grundfunktionalität)
+* Verantwortlichkeit (DRY)
+* Testbarkeit (Test-Suites wie RSpec, Expectations oder test/spec)
+* Vererbbarkeit (Probleme mit Hash als "inheritable_attribute")
