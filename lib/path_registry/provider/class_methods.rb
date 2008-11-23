@@ -19,8 +19,8 @@ module PathRegistry
       protected
       def registry_defaults
         {
-          :label  => proc { |path| path.provider.to_s },
-          :path   => proc { |path| "/#{ name.tableize }/show/#{ path.provider_id }" },
+          :label  => proc { |provider| provider.to_s },
+          :path   => proc { |provider| "/#{ name.tableize }/show/#{ provider.id }" },
           :scope  => nil
         }
       end

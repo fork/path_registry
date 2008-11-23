@@ -24,17 +24,17 @@ class RegisteredPath < ActiveRecord::Base
   protected
   def assign_scope
     klass = provider.class
-    self.scope = klass.path_registry.scope self
+    self.scope = klass.path_registry.scope provider
   end
   before_validation :assign_scope
   def assign_label
     klass = provider.class
-    self.label = klass.path_registry.label self
+    self.label = klass.path_registry.label provider
   end
   before_validation :assign_label
   def assign_path
     klass = provider.class
-    self.path = klass.path_registry.path self
+    self.path = klass.path_registry.path provider
   end
   before_validation :assign_path
 

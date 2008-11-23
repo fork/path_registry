@@ -10,8 +10,8 @@ InhProvider = Class.new Provider
 
 CustomInhProvider = Class.new Provider do
 
-  registers_path :scope => proc { |path| name } do |path|
-    "/#{ path.provider.slug }"
+  registers_path :scope => proc { |provider| name } do |provider|
+    "/#{ provider.slug }"
   end
   
 end
