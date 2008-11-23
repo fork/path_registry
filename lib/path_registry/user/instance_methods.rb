@@ -1,5 +1,5 @@
 module PathRegistry
-  module Consumer
+  module User
     module InstanceMethods
 
       def registered_paths

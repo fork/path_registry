@@ -32,7 +32,7 @@
 
 == Wie ist die "PathRegistry" aufgebaut (UML)?
 * Nutzer und Anbieter
-* Ereignisse und Beobachter
+* Ereignisse und Strategien
 * Registrierte Links
 
 <SETUP>
@@ -42,8 +42,8 @@
   rake db:migrate
 
   $EDITOR config/path_registry.rb
-  add_event ...
-  add_observer ...
+  name_route ...
+  route ...
   registered_path { ... }
 
 <USAGE>
@@ -52,6 +52,7 @@
 
 == Welche Ziele gab es (mit Beispielen)?
 * Composed Method Pattern - Kent Beck (are comments code smells?)
+* Strategy Pattern (ActionController::Base.respond_to {} => on... {})
 * Erweiterbarkeit (wenig Grundfunktionalität)
 * Verantwortlichkeit (DRY)
 * Testbarkeit (Test-Suites wie RSpec, Expectations oder test/spec)

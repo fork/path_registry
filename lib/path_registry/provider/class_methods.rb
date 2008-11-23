@@ -3,7 +3,8 @@ module PathRegistry
     module ClassMethods
 
       def configure_registry(opts, &block)
-        @path_registry = PathRegistry::Provider::Config.new(self, opts, &block)
+        opts[:path] = block if block
+        @path_registry = PathRegistry::Config.new self, registry_defaults, opts
 
         PathRegistry::Provider.install_association self
         PathRegistry::Provider.install_hooks self
@@ -13,6 +14,15 @@ module PathRegistry
 
       def path_registry
         @path_registry ||= superclass.path_registry
+      end
+
+      protected
+      def registry_defaults
+        {
+          :label  => proc { |path| path.provider.to_s },
+          :path   => proc { |path| "/#{ name.tableize }/show/#{ path.provider_id }" },
+          :scope  => nil
+        }
       end
 
     end

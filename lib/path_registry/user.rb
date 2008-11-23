@@ -1,5 +1,5 @@
 module PathRegistry
-  module Consumer
+  module User
 
     def self.install_association(base)
       base.belongs_to :registered_path,

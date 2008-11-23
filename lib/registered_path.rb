@@ -3,9 +3,7 @@ class RegisteredPath < ActiveRecord::Base
   belongs_to :provider, :polymorphic => true
 
   def has_user?
-    PathRegistry.observers.any? { |observer|
-      observer.user { |u| u.exists? u.path_registry.foreign_key => id }
-    }
+    PathRegistry.users.any? { |u| u.exists? u.path_registry.foreign_key => id }
   end
 
   def to_s
@@ -26,17 +24,17 @@ class RegisteredPath < ActiveRecord::Base
   protected
   def assign_scope
     klass = provider.class
-    self.scope = klass.path_registry.scope provider
+    self.scope = klass.path_registry.scope self
   end
   before_validation :assign_scope
   def assign_label
     klass = provider.class
-    self.label = klass.path_registry.label provider
+    self.label = klass.path_registry.label self
   end
   before_validation :assign_label
   def assign_path
     klass = provider.class
-    self.path = klass.path_registry.path provider
+    self.path = klass.path_registry.path self
   end
   before_validation :assign_path
 

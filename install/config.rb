@@ -5,8 +5,8 @@ module PathRegistry
   #  on_whitelist
   #end
 
-  # add an observer routing snippet...
-  #add_observer 'Consumer' do |on|
+  # add an event routing snippet...
+  #route 'Navigation' do |on|
   #  on.update { self.is_a? RegisteredLink }
   #end
 

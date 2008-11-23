@@ -2,16 +2,16 @@ require 'test_helper'
 
 Expectations do
 
-  expect [ 'foo', *PathRegistry::EventRouter.instance_methods ].sort do
-    PathRegistry.add_event :foo
-    PathRegistry::EventRouter.instance_methods.sort
+  expect [ 'foo', 'bar', *PathRegistry::RouteFilter.instance_methods ].sort do
+    PathRegistry.name_route :foo, :bar
+    PathRegistry::RouteFilter.instance_methods.sort
   end
 
   expect Consumer.new.to.be.routed_by_the_first_routing do |instance|
     PathRegistry.notify :update, instance
   end
 
-  expect PathRegistry::Provider::Config do
+  expect PathRegistry::Config do
     Provider.path_registry
   end
 
@@ -19,18 +19,14 @@ Expectations do
     InhProvider.path_registry
   end
 
-  expect 'label' do
-    provider = Provider.new
-    provider.label = 'label'
-    provider.class.path_registry.label provider
-  end
-
   expect 'CustomInhProvider' do
     provider = CustomInhProvider.new
-    provider.class.path_registry.scope provider
+    provider.build_registered_path :provider => provider
+
+    provider.class.path_registry.scope provider.registered_path
   end
 
-  expect /\/providers\/show\/\d+/ do
+  expect(/\/providers\/show\/\d+/) do
     provider = Provider.create
     path = provider.registered_path
     provider.destroy
