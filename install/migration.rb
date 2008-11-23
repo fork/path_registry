@@ -11,7 +11,7 @@ class CreateRegisteredPaths < ActiveRecord::Migration
     add_index :registered_paths, :scope
     add_index :registered_paths, :path, :unique => true
 
-    add_index :registered_paths, [:registered_record_type, :registered_record_id], :unique => true
+    add_index :registered_paths, [:provider_type, :provider_id], :unique => true
   end
 
   def self.down
