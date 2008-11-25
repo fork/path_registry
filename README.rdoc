@@ -42,8 +42,7 @@
   rake db:migrate
 
   $EDITOR config/path_registry.rb
-  name_route ...
-  route ...
+  notifies ...
   registered_path { ... }
 
 <USAGE>

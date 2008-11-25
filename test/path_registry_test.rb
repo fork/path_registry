@@ -2,11 +2,6 @@ require 'test_helper'
 
 Expectations do
 
-  expect [ 'foo', 'bar', *PathRegistry::RouteFilter.instance_methods ].sort do
-    PathRegistry.name_route :foo, :bar
-    PathRegistry::RouteFilter.instance_methods.sort
-  end
-
   expect Consumer.new.to.be.routed_by_the_first_routing do |instance|
     PathRegistry.notify :update, instance
   end

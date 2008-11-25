@@ -1,7 +1,7 @@
 require "#{ File.dirname __FILE__ }/registered_path"
 
 require __FILE__.insert(-4, '/config')
-require __FILE__.insert(-4, '/route_filter')
+require __FILE__.insert(-4, '/handle_collector')
 
 require __FILE__.insert(-4, '/provider')
 require __FILE__.insert(-4, '/provider/instance_methods')
@@ -14,26 +14,21 @@ require __FILE__.insert(-4, '/user/instance_methods')
 module PathRegistry
 
   @@routings = {}
-  def self.route(name, &routing)
-    @@routings[name] ||= routing
-  end
-
-  def self.name_route(*route_names)
-    for name in route_names
-      PathRegistry::RouteFilter.define_route_with_name name
+  def self.notifies(name, &routing)
+    @@routings[name] ||= begin
+      collector = PathRegistry::HandleCollector.new
+      routing[collector]
+      collector.to_hash
     end
   end
-  name_route :update, :destroy
 
   def self.registered_path(&block)
     RegisteredPath.instance_eval(&block)
   end
 
   def self.notify(route_name, path)
-    filter = PathRegistry::RouteFilter.new route_name
-
     for name, routing in @@routings
-      route = filter[routing] and
+      route = routing[route_name] and
       path.instance_eval(&route)
     end
   end
