@@ -6,7 +6,7 @@ module PathRegistry
   #end
 
   # add an event routing snippet...
-  #route 'Navigation' do |on|
+  #notifies 'Navigation' do |on|
   #  on.update { self.is_a? RegisteredLink }
   #end
 
