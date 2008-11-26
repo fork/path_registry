@@ -18,8 +18,8 @@ class RegisteredPath < ActiveRecord::Base
     { :conditions => {:scope => scope} }
   }
 
-  after_update   { |r| PathRegistry.notify :update, self }
-  after_destroy  { |r| PathRegistry.notify :destroy, self }
+  after_update   { |r| PathRegistry.notify :update, r }
+  after_destroy  { |r| PathRegistry.notify :destroy, r }
 
   protected
   def assign_scope
