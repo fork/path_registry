@@ -2,7 +2,7 @@ module PathRegistry
   module User
     module ClassMethods
 
-      def configure_registry(opts)
+      def configure_registry(opts = {})
         @path_registry = PathRegistry::Config.new self, registry_defaults, opts
         PathRegistry::User.install_association self
 

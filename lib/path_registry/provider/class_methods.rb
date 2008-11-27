@@ -2,7 +2,7 @@ module PathRegistry
   module Provider
     module ClassMethods
 
-      def configure_registry(opts, &block)
+      def configure_registry(opts = {}, &block)
         opts[:path] = block if block
         @path_registry = PathRegistry::Config.new self, registry_defaults, opts
 
