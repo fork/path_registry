@@ -23,7 +23,7 @@ module PathRegistry
   end
 
   def self.registered_path(&block)
-    RegisteredPath.instance_eval(&block)
+    RegisteredPath.module_eval(&block)
   end
 
   def self.notify(route_name, path)
