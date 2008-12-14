@@ -1,6 +1,6 @@
 class CreateRegisteredPaths < ActiveRecord::Migration
   def self.up
-    ActiveRecord::Base.connection.create_table :registered_paths do |t|
+    create_table :registered_paths do |t|
       t.references :provider, :polymorphic => true, :null => false
 
       t.string :scope
