@@ -11,7 +11,6 @@ class RegisteredPath < ActiveRecord::Base
   end
 
   validates_uniqueness_of :provider_id, :scope => :provider_type
-  validates_associated :provider
 
   named_scope :scopeless
   named_scope :have_scope, lambda { |scope|
